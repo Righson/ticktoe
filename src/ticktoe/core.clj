@@ -12,8 +12,7 @@
       (list true (assoc boards player (bit-xor board (bit-shift-left 1 s)))))))
 
 (defn cons-board [boards row-cap players]
-  (loop [p players
-         p-idx 0
+  (loop [p-idx 0
          idx 0
          res ""]
     (let [rc (* row-cap row-cap)
@@ -21,10 +20,10 @@
       (if (not= rc idx)
         (do
           (if (bit-test (get boards p-idx 0) idx)
-            (recur p 0 (inc idx) (str res eol (get p p-idx)))
-            (if (= p-idx (count p))
-              (recur p 0 (inc idx) (str res eol "*"))
-              (recur p (inc p-idx) idx res))))
+            (recur 0 (inc idx) (str res eol (get players p-idx)))
+            (if (= p-idx (count players))
+              (recur 0 (inc idx) (str res eol "*"))
+              (recur (inc p-idx) idx res))))
         res))))
 
 (defn draw-board [boards row-cap players]
