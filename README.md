@@ -1,6 +1,6 @@
 # ticktoe
 
-FIXME: Naive implementation ticktoe on Clojure
+Naive implementation ticktoe on Clojure
 
 ## Installation
 
