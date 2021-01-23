@@ -2,9 +2,6 @@
 
 Naive implementation ticktoe on Clojure
 
-## Installation
-
-Download from http://example.com/FIXME.
 
 ## Usage
 
