@@ -47,7 +47,7 @@
               (recur (inc p-idx) idx res))))
         res))))
 
-(defn draw-board [row-cap boards players]
+(defn draw-board [players row-cap boards]
   (-> (cons-board row-cap boards players)
       (println)))
 
@@ -56,8 +56,8 @@
   (let [board [0 0]
         row-cap 3
         players ["X" "O"]]
-    (draw-board row-cap board players)
+    (draw-board players row-cap board)
     (Thread/sleep 1000)
-    (draw-board row-cap
-                (first (rest (make-move row-cap board 0 (cons-position row-cap 0 0))))
-                players)))
+    (draw-board players
+                row-cap
+                (first (rest (make-move row-cap board 0 (cons-position row-cap 0 0)))))))
