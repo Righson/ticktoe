@@ -1,6 +1,9 @@
 (ns ticktoe.core
   (:gen-class))
 
+(defn cons-position [row-cap x y]
+  (+ (* row-cap x) y))
+
 (defn reduce-board [f board]
   (reduce #(and %1 (f %2)) true board))
 
@@ -14,9 +17,8 @@
 
 (defn make-move
   "Делает ход на доску board игрока player производя xor с текущим состояние доски"
-  [row-cap boards player x y]
-  (let [s (+ (* row-cap x) y)
-        board (get boards player)
+  [row-cap boards player s]
+  (let [board  (get boards player)
         boardA (get boards 0)
         boardB (get boards 1)]
     (if (and (not (bit-test boardA s)) (not (bit-test boardB s)))
@@ -57,4 +59,5 @@
     (draw-board row-cap board players)
     (Thread/sleep 1000)
     (draw-board row-cap
-     (first (rest (make-move row-cap board 0 0 0))) players)))
+                (first (rest (make-move row-cap board 0 (cons-position row-cap 0 0))))
+                players)))
