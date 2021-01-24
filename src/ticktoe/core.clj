@@ -16,12 +16,21 @@
   "Делает ход на доску board игрока player производя xor с текущим состояние доски"
   [row-cap boards player x y]
   (let [s (+ (* row-cap x) y)
-        board (get boards player)]
-    (if (reduce #(and %1 (bit-test %2 s)) true boards) ;; (bit-test board s)
-      (list false boards)
-      (list true (assoc boards player (bit-xor board (bit-shift-left 1 s)))))))
+        board (get boards player)
+        boardA (get boards 0)
+        boardB (get boards 1)]
+    (if (and (not (bit-test boardA s)) (not (bit-test boardB s)))
+      ;; (reduce #(and %1 (bit-test %2 s)) true boards) ;; (bit-test board s)
+      (list true (assoc boards player (bit-xor board (bit-shift-left 1 s))))
+      (list false boards))))
 
-(defn cons-board [row-cap boards players]
+(defn cons-board
+  "Возвращает доску как строку где:
+  row-cap - ширина и длинна доски
+  boards  - состояние ходов игроков
+  players - предстваление игрков символами например X или O
+  "
+  [row-cap boards players]
   (loop [p-idx 0
          idx 0
          res ""]
@@ -40,9 +49,12 @@
   (-> (cons-board row-cap boards players)
       (println)))
 
-
-
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (let [board [0 0]
+        row-cap 3
+        players ["X" "O"]]
+    (draw-board row-cap board players)
+    (Thread/sleep 1000)
+    (draw-board row-cap
+     (first (rest (make-move row-cap board 0 0 0))) players)))
