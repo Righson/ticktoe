@@ -55,3 +55,8 @@
 (defn test-diag-win [row-cap board]
   (or (test-win row-cap board cons-diag-position-left)
       (test-win row-cap board cons-diag-position-right)))
+
+(defn test-board-win [row-cap board]
+  (or (test-col-win  row-cap board)
+      (test-row-win  row-cap board)
+      (test-diag-win row-cap board)))

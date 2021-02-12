@@ -28,3 +28,7 @@
     (is (test-diag-win 3 273)))
   (testing "test-diag-win no win case"
     (is (not (test-diag-win 3 17)))))
+
+(deftest test-test-board-win
+  (testing "test-board-win win case"
+    (is (test-board-win 3 58))))
